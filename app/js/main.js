@@ -1,11 +1,13 @@
 import "../css/style.css";
 
+const apiEntry = "/api/v2/facts/random";
+
+console.log(fetch(apiEntry));
+
 async function getData() {
   //fetch returns a promise
   try {
-    const response = await fetch(
-      "https://foodish-api.com/images/butter-chicken/butter-chicken13"
-    );
+    const response = await fetch("");
     //guard clause
     if (response.status != 200) {
       throw new Error(response);
@@ -16,7 +18,7 @@ async function getData() {
     }
   } catch (error) {
     console.log(error);
-    alert("sorry could not find that pocket monster");
+    alert("error");
   }
 }
 
