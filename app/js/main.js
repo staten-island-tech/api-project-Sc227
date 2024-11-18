@@ -1,20 +1,24 @@
 import "../css/style.css";
 
-const apiEntry = "/api/v2/facts/random";
+const apiEntry = "https://genshin.jmp.blue/characters";
 
 console.log(fetch(apiEntry));
 
-async function getData() {
+fetch(apiEntry)
+  .then((response) => response.json()) // use the `.json()` method
+  .then((data) => console.log(data));
+
+async function getData(apiEntry) {
   //fetch returns a promise
   try {
-    const response = await fetch("");
+    const response = await fetch(apiEntry);
     //guard clause
     if (response.status != 200) {
       throw new Error(response);
     } else {
       const data = await response.json();
-      document.querySelector("h1").textContent = data.name;
-      //console.log(data);
+      console.log(data);
+      return data;
     }
   } catch (error) {
     console.log(error);
@@ -22,4 +26,23 @@ async function getData() {
   }
 }
 
-getData();
+getData(apiEntry);
+
+document.querySelector(".all").addEventListener("click", function (event) {
+  event.preventDefault();
+  allCards();
+});
+
+function allCards() {
+  const container = document.querySelector(".container");
+  container.innerHTML = "";
+
+  apiEntry.forEach((character) => {
+    container.innerHTML += `
+      <div class="card">
+        <h2> ${character.title} </h2>
+         <h4> ${character.originCountry} </h4>
+        <img class="pic" src="${character.imageUrl}" alt="${character.altText}">
+      </div>`;
+  });
+}
