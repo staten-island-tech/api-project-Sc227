@@ -1,6 +1,6 @@
 import "../css/style.css";
 
-const apiEntry = "https://genshin.jmp.blue/characters";
+const apiEntry = "https://gsi.fly.dev/characters";
 
 console.log(fetch(apiEntry));
 
@@ -41,7 +41,6 @@ function allCards() {
     container.innerHTML += `
       <div class="card">
         <h2> ${character.title} </h2>
-         <h4> ${character.originCountry} </h4>
         <img class="pic" src="${character.imageUrl}" alt="${character.altText}">
       </div>`;
   });
