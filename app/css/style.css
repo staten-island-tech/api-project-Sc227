@@ -17,6 +17,10 @@ body {
     font-family: 'Kanit';
 }
 
+.all {
+    @apply bg-blue-500 text-white px-4 py-2 rounded shadow-lg transition transform;
+}
+
 .container {
     display: flex;
     flex-wrap: wrap;

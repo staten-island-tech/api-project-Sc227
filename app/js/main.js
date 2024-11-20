@@ -2,11 +2,7 @@ import "../css/style.css";
 
 const apiEntry = "https://gsi.fly.dev/characters";
 
-console.log(fetch(apiEntry));
-
-fetch(apiEntry)
-  .then((response) => response.json()) // use the `.json()` method
-  .then((data) => console.log(data));
+let globalData = [];
 
 async function getData(apiEntry) {
   //fetch returns a promise
@@ -18,6 +14,7 @@ async function getData(apiEntry) {
     } else {
       const data = await response.json();
       console.log(data);
+      globalData = data;
       return data;
     }
   } catch (error) {
@@ -30,18 +27,18 @@ getData(apiEntry);
 
 document.querySelector(".all").addEventListener("click", function (event) {
   event.preventDefault();
-  allCards();
+  allCards(globalData);
 });
 
-function allCards() {
+function allCards(data) {
   const container = document.querySelector(".container");
   container.innerHTML = "";
 
-  apiEntry.forEach((character) => {
+  data.forEach((character) => {
     container.innerHTML += `
       <div class="card">
-        <h2> ${character.title} </h2>
-        <img class="pic" src="${character.imageUrl}" alt="${character.altText}">
+        <h2> ${results.name} </h2>
+        <img class="pic" src="${results.imageUrl}" alt="${results.altText}">
       </div>`;
   });
 }
