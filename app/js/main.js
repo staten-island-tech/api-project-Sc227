@@ -1,20 +1,19 @@
 import "../css/style.css";
 
-const apiEntry = "https://gsi.fly.dev/characters";
-
-let globalData = [];
+const DOMSelectors = {
+  container: document.querySelector(".container"),
+  form: document.querySelector("form"),
+};
 
 async function getData(apiEntry) {
-  //fetch returns a promise
+  const apiEntry = "https://gsi.fly.dev/characters";
   try {
     const response = await fetch(apiEntry);
-    //guard clause
     if (response.status != 200) {
       throw new Error(response);
     } else {
       const data = await response.json();
       console.log(data);
-      globalData = data;
       return data;
     }
   } catch (error) {
@@ -22,23 +21,37 @@ async function getData(apiEntry) {
     alert("error");
   }
 }
+getData();
 
-getData(apiEntry);
-
-document.querySelector(".all").addEventListener("click", function (event) {
+DOMSelectors.form.addEventListener("submit", function (event) {
   event.preventDefault();
-  allCards(globalData);
+  const name = DOMSelectors.results.name;
+  const card = createObject(name);
+  injectCard(card);
+  clearFields();
+  removeCard();
 });
 
-function allCards(data) {
-  const container = document.querySelector(".container");
-  container.innerHTML = "";
-
-  data.forEach((character) => {
-    container.innerHTML += `
-      <div class="card">
-        <h2> ${results.name} </h2>
-        <img class="pic" src="${results.imageUrl}" alt="${results.altText}">
-      </div>`;
-  });
+function createObject(name) {
+  return {
+    name: name,
+  };
 }
+
+function injectCard(card) {
+  const cardHTML = `<div class="card">
+    <h2>${card.name}</h2>
+  </div>`;
+
+  DOMSelectors.box.insertAdjacentHTML("beforeend", cardHTML);
+}
+
+function startData() {
+  DOMSelectors.container.innerHTML = "";
+  const name = results[0].name;
+  `
+      <div class="card">
+        <h2> ${name} </h2>
+      </div>`;
+}
+startData();
