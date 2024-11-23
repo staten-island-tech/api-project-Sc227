@@ -2,56 +2,57 @@ import "../css/style.css";
 
 const DOMSelectors = {
   container: document.querySelector(".container"),
-  form: document.querySelector("form"),
+  form: document.querySelector(".form"),
+  search: document.getElementById("search-box"),
 };
 
-async function getData(apiEntry) {
-  const apiEntry = "https://gsi.fly.dev/characters";
-  try {
-    const response = await fetch(apiEntry);
-    if (response.status != 200) {
-      throw new Error(response);
-    } else {
-      const data = await response.json();
-      console.log(data);
-      return data;
+async function getData() {
+  DOMSelectors.form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    const search = DOMSelectors.search.value;
+    const apiEntry = `https://gsi.fly.dev/characters/${search}`;
+    create();
+
+    try {
+      const response = await fetch(apiEntry);
+      if (response.status != 200) {
+        throw new Error(response);
+      } else {
+        const data = await response.json();
+        console.log(data);
+        create(data); // Pass the data
+        return data;
+      }
+    } catch (error) {
+      console.log(error);
+      alert("error");
     }
-  } catch (error) {
-    console.log(error);
-    alert("error");
-  }
+  });
 }
 getData();
 
-DOMSelectors.form.addEventListener("submit", function (event) {
-  event.preventDefault();
-  const name = DOMSelectors.results.name;
-  const card = createObject(name);
-  injectCard(card);
-  clearFields();
-  removeCard();
-});
-
-function createObject(name) {
-  return {
-    name: name,
-  };
+DOMSelectors.container.innerHTML = ``;
+if (!data || !data.length) {
+  DOMSelectors.container.innerHTML = `<p>No results found.</p>`;
 }
 
-function injectCard(card) {
-  const cardHTML = `<div class="card">
-    <h2>${card.name}</h2>
-  </div>`;
+const diction = data[0].name;
+const meanings = data[0].element || [];
 
-  DOMSelectors.box.insertAdjacentHTML("beforeend", cardHTML);
-}
-
-function startData() {
-  DOMSelectors.container.innerHTML = "";
-  const name = results[0].name;
-  `
+meanings.forEach((meaning) => {
+  const card = `
       <div class="card">
-        <h2> ${name} </h2>
-      </div>`;
-}
-startData();
+          <h3>${diction}</h3>
+          <div class="meanings">
+              <h4>${meaning.element || "Unknown"}</h4>
+          </div>
+          <div class="sources">
+              <h6 class="s-head">Source: "${data[0].sourceUrls || "N/A"}"</h6>
+              <h6>License: ${data[0].license?.name || "N/A"}, ${
+    data[0].license?.url || "N/A"
+  }</h6>
+          </div>
+      </div>
+    `;
+  DOMSelectors.container.innerHTML += card;
+});
