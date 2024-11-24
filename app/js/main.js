@@ -2,57 +2,80 @@ import "../css/style.css";
 
 const DOMSelectors = {
   container: document.querySelector(".container"),
-  form: document.querySelector(".form"),
-  search: document.getElementById("search-box"),
+  form: document.getElementById("form"),
+  all: document.getElementById("all"),
+  hydro: document.getElementById("hydro"),
 };
 
-async function getData() {
-  DOMSelectors.form.addEventListener("submit", async function (event) {
-    event.preventDefault();
-    const search = DOMSelectors.search.value;
-    const apiEntry = `https://gsi.fly.dev/characters/${search}`;
-    create();
+const apiEntry = "https://gsi.fly.dev/characters";
 
-    try {
-      const response = await fetch(apiEntry);
-      if (response.status != 200) {
-        throw new Error(response);
-      } else {
-        const data = await response.json();
-        console.log(data);
-        create(data); // Pass the data
-        return data;
-      }
-    } catch (error) {
-      console.log(error);
-      alert("error");
+async function fetchData() {
+  try {
+    const response = await fetch(apiEntry);
+    console.log(response.status);
+    if (response.status != 200) {
+      throw new Error(response);
+    } else {
+      const data = await response.json();
+      console.log(data);
+      return data.results;
     }
-  });
+  } catch (error) {
+    console.log(error);
+    alert("error");
+  }
 }
-getData();
+fetchData(apiEntry);
 
-DOMSelectors.container.innerHTML = ``;
-if (!data || !data.length) {
-  DOMSelectors.container.innerHTML = `<p>No results found.</p>`;
+function renderCharacters(characters) {
+  DOMSelectors.container.innerHTML = "";
+
+  const cards = characters.map(
+    (character) => `
+    <div class="card">
+      <h3>${character.name}</h3>
+      <p><strong>Element:</strong> ${character.vision}</p>
+      <p><strong>Weapon:</strong> ${character.weapon}</p>
+      <p><strong>Region:</strong> ${character.wiki_url}</p>
+    </div>
+  `
+  );
+
+  DOMSelectors.container.innerHTML = cards;
 }
 
-const diction = data[0].name;
-const meanings = data[0].element || [];
+async function showAllCharacters() {
+  try {
+    const characters = await fetchData(); // Fetch all characters
+    const allCharacters = characters.filter(
+      (character) => character.vision !== "Pancake"
+    ); // Filter Hydro
+    renderCharacters(allCharacters); // Render Hydro characters
+  } catch (error) {
+    DOMSelectors.container.innerHTML = `<p>Error: Unable to load characters.</p>`;
+  }
+}
+/**
+ * Handle filtering and displaying Hydro characters.
+ */
+async function showHydroCharacters() {
+  try {
+    const characters = await fetchData(); // Fetch all characters
+    const hydroCharacters = characters.filter(
+      (character) => character.vision === "Hydro"
+    ); // Filter Hydro
+    renderCharacters(hydroCharacters); // Render Hydro characters
+  } catch (error) {
+    DOMSelectors.container.innerHTML = `<p>Error: Unable to load characters.</p>`;
+  }
+}
 
-meanings.forEach((meaning) => {
-  const card = `
-      <div class="card">
-          <h3>${diction}</h3>
-          <div class="meanings">
-              <h4>${meaning.element || "Unknown"}</h4>
-          </div>
-          <div class="sources">
-              <h6 class="s-head">Source: "${data[0].sourceUrls || "N/A"}"</h6>
-              <h6>License: ${data[0].license?.name || "N/A"}, ${
-    data[0].license?.url || "N/A"
-  }</h6>
-          </div>
-      </div>
-    `;
-  DOMSelectors.container.innerHTML += card;
+DOMSelectors.all.addEventListener("click", (e) => {
+  e.preventDefault();
+  showAllCharacters();
+});
+
+DOMSelectors.hydro.addEventListener("click", (e) => {
+  e.preventDefault();
+  showHydroCharacters(); // Fetch and display Hydro characters
 });
