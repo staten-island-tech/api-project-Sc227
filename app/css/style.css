@@ -15,17 +15,6 @@ html {
 
 .container {
   display: flex;
-  text-align: center;
   align-items: center;
   flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-.card {
-  background-color: #ffffff;
-  width: 70%;
-  text-align: center;
-  margin: 3%;
-  padding: 3%;
-  height: max-content;
 }

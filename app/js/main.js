@@ -7,7 +7,7 @@ const DOMSelectors = {
   hydro: document.getElementById("hydro"),
 };
 
-const apiEntry = "https://gsi.fly.dev/characters";
+const apiEntry = "https://genshin.jmp.blue/characters/all";
 
 async function fetchData() {
   try {
@@ -18,7 +18,7 @@ async function fetchData() {
     } else {
       const data = await response.json();
       console.log(data);
-      return data.results;
+      return data;
     }
   } catch (error) {
     console.log(error);
@@ -32,39 +32,46 @@ function renderCharacters(characters) {
 
   const cards = characters.map(
     (character) => `
-    <div class="card">
-      <h3>${character.name}</h3>
+    <div className="card card-side bg-base-100 shadow-xl">
+  <figure>
+    <img
+      src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+      alt="Movie" />
+  </figure>
+  <div className="card-body">
+    <h3>${character.name}</h3>
       <p><strong>Element:</strong> ${character.vision}</p>
       <p><strong>Weapon:</strong> ${character.weapon}</p>
       <p><strong>Region:</strong> ${character.wiki_url}</p>
+    <div className="card-actions justify-end">
+      <button className="btn btn-primary">Watch</button>
     </div>
+  </div>
+</div>
   `
   );
-
   DOMSelectors.container.innerHTML = cards;
 }
 
 async function showAllCharacters() {
   try {
-    const characters = await fetchData(); // Fetch all characters
+    const characters = await fetchData();
     const allCharacters = characters.filter(
       (character) => character.vision !== "Pancake"
-    ); // Filter Hydro
-    renderCharacters(allCharacters); // Render Hydro characters
+    );
+    renderCharacters(allCharacters);
   } catch (error) {
     DOMSelectors.container.innerHTML = `<p>Error: Unable to load characters.</p>`;
   }
 }
-/**
- * Handle filtering and displaying Hydro characters.
- */
+
 async function showHydroCharacters() {
   try {
-    const characters = await fetchData(); // Fetch all characters
+    const characters = await fetchData();
     const hydroCharacters = characters.filter(
       (character) => character.vision === "Hydro"
-    ); // Filter Hydro
-    renderCharacters(hydroCharacters); // Render Hydro characters
+    );
+    renderCharacters(hydroCharacters);
   } catch (error) {
     DOMSelectors.container.innerHTML = `<p>Error: Unable to load characters.</p>`;
   }
@@ -77,5 +84,5 @@ DOMSelectors.all.addEventListener("click", (e) => {
 
 DOMSelectors.hydro.addEventListener("click", (e) => {
   e.preventDefault();
-  showHydroCharacters(); // Fetch and display Hydro characters
+  showHydroCharacters();
 });
