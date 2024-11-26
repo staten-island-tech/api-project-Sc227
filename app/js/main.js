@@ -27,62 +27,62 @@ async function fetchData() {
 }
 fetchData(apiEntry);
 
-function renderCharacters(characters) {
+function getCharacters(characters) {
   DOMSelectors.container.innerHTML = "";
 
-  const cards = characters.map(
-    (character) => `
-    <div className="card card-side bg-base-100 shadow-xl">
+  const cards = characters.map((character) => {
+    const image = `./assets/images/characters/${character.name}/portrait`;
+    `
+   <div class="card card-side bg-base-100 shadow-xl">
   <figure>
     <img
-      src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-      alt="Movie" />
+      src="${image}" alt="${character.name}"/>
   </figure>
-  <div className="card-body">
+  <div class="card-body">
     <h3>${character.name}</h3>
-      <p><strong>Element:</strong> ${character.vision}</p>
+      <p><strong>Vision:</strong> ${character.vision}</p>
       <p><strong>Weapon:</strong> ${character.weapon}</p>
       <p><strong>Region:</strong> ${character.wiki_url}</p>
-    <div className="card-actions justify-end">
-      <button className="btn btn-primary">Watch</button>
+    <div class="card-actions justify-end">
+      <button class="btn btn-primary">Watch</button>
     </div>
   </div>
 </div>
-  `
-  );
-  DOMSelectors.container.innerHTML = cards;
+  `;
+    DOMSelectors.container.innerHTML = cards;
+  });
 }
 
-async function showAllCharacters() {
+async function alllCharacters() {
   try {
     const characters = await fetchData();
     const allCharacters = characters.filter(
       (character) => character.vision !== "Pancake"
     );
-    renderCharacters(allCharacters);
+    getCharacters(allCharacters);
   } catch (error) {
     DOMSelectors.container.innerHTML = `<p>Error: Unable to load characters.</p>`;
   }
 }
 
-async function showHydroCharacters() {
+async function allHydroCharacters() {
   try {
     const characters = await fetchData();
     const hydroCharacters = characters.filter(
       (character) => character.vision === "Hydro"
     );
-    renderCharacters(hydroCharacters);
+    getCharacters(hydroCharacters);
   } catch (error) {
     DOMSelectors.container.innerHTML = `<p>Error: Unable to load characters.</p>`;
   }
 }
 
-DOMSelectors.all.addEventListener("click", (e) => {
-  e.preventDefault();
-  showAllCharacters();
+DOMSelectors.all.addEventListener("click", (el) => {
+  el.preventDefault();
+  alllCharacters();
 });
 
-DOMSelectors.hydro.addEventListener("click", (e) => {
-  e.preventDefault();
-  showHydroCharacters();
+DOMSelectors.hydro.addEventListener("click", (el) => {
+  el.preventDefault();
+  allHydroCharacters();
 });
