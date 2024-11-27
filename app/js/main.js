@@ -31,7 +31,7 @@ function getCharacters(characters) {
   DOMSelectors.container.innerHTML = "";
 
   const cards = characters.map((character) => {
-    const image = `./assets/images/characters/${character.name}/portrait`;
+    const image = `./images/characters/${character.name}/portrait`;
     `
    <div class="card card-side bg-base-100 shadow-xl">
   <figure>
