@@ -12,9 +12,3 @@ html {
   text-align: center;
   align-items: center;
 }
-
-.container {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-}

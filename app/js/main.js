@@ -30,28 +30,31 @@ fetchData(apiEntry);
 function getCharacters(characters) {
   DOMSelectors.container.innerHTML = "";
 
-  const cards = characters.map((character) => {
-    return `
-<div class="card card-side bg-base-100 shadow-xl">
-  <figure>
-    <img
-      src="https://genshin.jmp.blue/${character.name}/portrait" alt="${character.name}"/>
-  </figure>
-  <div class="card-body">
-    <h3>${character.name}</h3>
-      <p><strong>Vision:</strong> ${character.vision}</p>
-      <p><strong>Weapon:</strong> ${character.weapon}</p>
-      <p><strong>Region:</strong> ${character.wiki_url}</p>
-    <div class="card-actions justify-end">
-      <button class="btn btn-primary">Watch</button>
-    </div>
-  </div>
-</div>
-  `;
+  characters.forEach((character) => {
+    const lowerCasedID = character.id.toLowerCase();
+    const imageURL = `https://genshin.jmp.blue/characters/${lowerCasedID}/icon-big`;
+
+    DOMSelectors.container.innerHTML += `
+      <div class="card card-side bg-base-100 shadow-xl flex-row">
+        <figure class="w-1/3">
+          <img class="rounded-lg object-cover"
+            src="${imageURL}" 
+            alt="${character.name}" 
+          />
+        </figure>
+        <div class="card-body w-2/3">
+          <h2 class="card-title">${character.name}</h2>
+          <p><strong>Vision:</strong> ${character.vision}</p>
+          <p><strong>Nation:</strong> ${character.nation}</p>
+          <p><strong>Weapon:</strong> ${character.weapon}</p>
+          <p>${character.description}</p>
+          <div class="card-actions justify-end">
+            <button class="btn btn-primary">Watch</button>
+          </div>
+        </div>
+      </div>
+    `;
   });
-  console.log("Generated HTML for cards:", cards);
-  DOMSelectors.container.innerHTML = cards;
-  console.log("Container innerHTML updated:", DOMSelectors.container.innerHTML);
 }
 
 async function showAllCharacters() {
