@@ -31,12 +31,11 @@ function getCharacters(characters) {
   DOMSelectors.container.innerHTML = "";
 
   const cards = characters.map((character) => {
-    const image = `./images/characters/${character.name}/portrait`;
-    `
-   <div class="card card-side bg-base-100 shadow-xl">
+    return `
+<div class="card card-side bg-base-100 shadow-xl">
   <figure>
     <img
-      src="${image}" alt="${character.name}"/>
+      src="https://genshin.jmp.blue/${character.name}/portrait" alt="${character.name}"/>
   </figure>
   <div class="card-body">
     <h3>${character.name}</h3>
@@ -49,11 +48,13 @@ function getCharacters(characters) {
   </div>
 </div>
   `;
-    DOMSelectors.container.innerHTML = cards;
   });
+  console.log("Generated HTML for cards:", cards);
+  DOMSelectors.container.innerHTML = cards;
+  console.log("Container innerHTML updated:", DOMSelectors.container.innerHTML);
 }
 
-async function alllCharacters() {
+async function showAllCharacters() {
   try {
     const characters = await fetchData();
     const allCharacters = characters.filter(
@@ -65,7 +66,7 @@ async function alllCharacters() {
   }
 }
 
-async function allHydroCharacters() {
+async function showAllHydroCharacters() {
   try {
     const characters = await fetchData();
     const hydroCharacters = characters.filter(
@@ -79,10 +80,10 @@ async function allHydroCharacters() {
 
 DOMSelectors.all.addEventListener("click", (el) => {
   el.preventDefault();
-  alllCharacters();
+  showAllCharacters();
 });
 
 DOMSelectors.hydro.addEventListener("click", (el) => {
   el.preventDefault();
-  allHydroCharacters();
+  showAllHydroCharacters();
 });
