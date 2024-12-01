@@ -3,21 +3,8 @@
   --dark-purple: #c370ca;
   --somewhat-dark-purple: #96399e;
   --darker-purple: #792e80;
-
-  --h4: 75%;
-  --h1: 210%;
-  --h3: 120%;
-  --h5: 80%;
-  --h2: 100%;
-  --h6: 70%;
 }
 
 body {
   background-color: var(--a-color);
-}
-
-h1 {
-  margin: 2%;
-  font-weight: bold;
-  font-size: var(--h1);
 }

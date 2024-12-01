@@ -4,7 +4,13 @@ const DOMSelectors = {
   container: document.querySelector(".container"),
   form: document.getElementById("form"),
   all: document.getElementById("all"),
+  pyro: document.getElementById("pyro"),
   hydro: document.getElementById("hydro"),
+  anemo: document.getElementById("anemo"),
+  electro: document.getElementById("electro"),
+  dendro: document.getElementById("dendro"),
+  cryo: document.getElementById("cryo"),
+  geo: document.getElementById("geo"),
 };
 
 const apiEntry = "https://genshin.jmp.blue/characters/all";
@@ -35,24 +41,22 @@ function getCharacters(characters) {
     const imageURL = `https://genshin.jmp.blue/characters/${lowerCasedID}/icon-big`;
 
     DOMSelectors.container.innerHTML += `
-      <div class="card card-side bg-base-100 shadow-xl flex-row">
-        <figure class="w-1/3">
-          <img class="rounded-lg object-cover"
-            src="${imageURL}" 
-            alt="${character.name}" 
-          />
-        </figure>
-        <div class="card-body w-2/3">
-          <h2 class="card-title">${character.name}</h2>
-          <p><strong>Vision:</strong> ${character.vision}</p>
-          <p><strong>Nation:</strong> ${character.nation}</p>
-          <p><strong>Weapon:</strong> ${character.weapon}</p>
-          <p>${character.description}</p>
-          <div class="card-actions justify-end">
-            <button class="btn btn-primary">Watch</button>
-          </div>
-        </div>
-      </div>
+    <div class="card card-side bg-base-100 shadow-xl">
+  <figure>
+    <img
+      src="${imageURL}"
+      alt="${character.name}" />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">${character.name}</h2>
+    <p><strong>Vision:</strong> ${character.vision}</p>
+    <p><strong>Nation:</strong> ${character.nation}</p>
+    <p><strong>Weapon:</strong> ${character.weapon}</p>
+    <div class="card-actions justify-end">
+      <button class="btn btn-primary">Watch</button>
+    </div>
+  </div>
+</div>
     `;
   });
 }
@@ -64,6 +68,18 @@ async function showAllCharacters() {
       (character) => character.vision !== "Pancake"
     );
     getCharacters(allCharacters);
+  } catch (error) {
+    DOMSelectors.container.innerHTML = `<p>Error: Unable to load characters.</p>`;
+  }
+}
+
+async function showAllPyroCharacters() {
+  try {
+    const characters = await fetchData();
+    const pyroCharacters = characters.filter(
+      (character) => character.vision === "Pyro"
+    );
+    getCharacters(pyroCharacters);
   } catch (error) {
     DOMSelectors.container.innerHTML = `<p>Error: Unable to load characters.</p>`;
   }
@@ -81,12 +97,102 @@ async function showAllHydroCharacters() {
   }
 }
 
+async function showAllAnemoCharacters() {
+  try {
+    const characters = await fetchData();
+    const anemoCharacters = characters.filter(
+      (character) => character.vision === "Anemo"
+    );
+    getCharacters(anemoCharacters);
+  } catch (error) {
+    DOMSelectors.container.innerHTML = `<p>Error: Unable to load characters.</p>`;
+  }
+}
+
+async function showAllElectroCharacters() {
+  try {
+    const characters = await fetchData();
+    const electroCharacters = characters.filter(
+      (character) => character.vision === "Electro"
+    );
+    getCharacters(electroCharacters);
+  } catch (error) {
+    DOMSelectors.container.innerHTML = `<p>Error: Unable to load characters.</p>`;
+  }
+}
+
+async function showAllDendroCharacters() {
+  try {
+    const characters = await fetchData();
+    const dendroCharacters = characters.filter(
+      (character) => character.vision === "Dendro"
+    );
+    getCharacters(dendroCharacters);
+  } catch (error) {
+    DOMSelectors.container.innerHTML = `<p>Error: Unable to load characters.</p>`;
+  }
+}
+
+async function showAllCryoCharacters() {
+  try {
+    const characters = await fetchData();
+    const cryoCharacters = characters.filter(
+      (character) => character.vision === "Cryo"
+    );
+    getCharacters(cryoCharacters);
+  } catch (error) {
+    DOMSelectors.container.innerHTML = `<p>Error: Unable to load characters.</p>`;
+  }
+}
+
+async function showAllGeoCharacters() {
+  try {
+    const characters = await fetchData();
+    const geoCharacters = characters.filter(
+      (character) => character.vision === "Geo"
+    );
+    getCharacters(geoCharacters);
+  } catch (error) {
+    DOMSelectors.container.innerHTML = `<p>Error: Unable to load characters.</p>`;
+  }
+}
+
 DOMSelectors.all.addEventListener("click", (el) => {
   el.preventDefault();
   showAllCharacters();
 });
 
+DOMSelectors.pyro.addEventListener("click", (el) => {
+  el.preventDefault();
+  showAllPyroCharacters();
+});
+
 DOMSelectors.hydro.addEventListener("click", (el) => {
   el.preventDefault();
   showAllHydroCharacters();
+});
+
+DOMSelectors.anemo.addEventListener("click", (el) => {
+  el.preventDefault();
+  showAllAnemoCharacters();
+});
+
+DOMSelectors.electro.addEventListener("click", (el) => {
+  el.preventDefault();
+  showAllElectroCharacters();
+});
+
+DOMSelectors.dendro.addEventListener("click", (el) => {
+  el.preventDefault();
+  showAllDendroCharacters();
+});
+
+DOMSelectors.cryo.addEventListener("click", (el) => {
+  el.preventDefault();
+  showAllCryoCharacters();
+});
+
+DOMSelectors.geo.addEventListener("click", (el) => {
+  el.preventDefault();
+  showAllGeoCharacters();
 });
