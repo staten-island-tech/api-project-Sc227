@@ -41,18 +41,21 @@ function getCharacters(characters) {
     const imageURL = `https://genshin.jmp.blue/characters/${lowerCasedID}/icon-big`;
 
     DOMSelectors.container.innerHTML += `
-    <div class="card card-side bg-base-100 shadow-xl">
+    <div class="card bg-base-100 w-96 shadow-xl">
   <figure>
     <img
       src="${imageURL}"
       alt="${character.name}" />
   </figure>
   <div class="card-body">
-    <h2 class="card-title font-serif">${character.name}</h2>
-    <p class="font-mono"><strong>Vision:</strong> ${character.vision}</p>
-    <p class="font-mono"><strong>Nation:</strong> ${character.nation}</p>
-    <p class="font-mono"><strong>Weapon:</strong> ${character.weapon}</p>
+    <h2 class="card-title font-serif">
+    ${character.name}
+      <div class="badge badge-secondary"> ${character.vision}</div>
+    </h2>
+    <p>${character.description}</p>
     <div class="card-actions justify-end">
+      <div class="badge badge-outline">${character.nation}</div>
+      <div class="badge badge-outline">${character.weapon}</div>
     </div>
   </div>
 </div>

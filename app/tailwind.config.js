@@ -2,16 +2,10 @@
 module.exports = {
   content: ["./index.html", "./main.js", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {}, // Place custom extensions here if needed
+    extend: {},
   },
   daisyui: {
-    themes: [
-      {
-        colortheme: {
-          "base-100": "#cfcfe8",
-        },
-      },
-    ],
+    themes: ["night"],
   },
   plugins: [require("daisyui")],
 };
