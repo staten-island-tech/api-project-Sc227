@@ -48,12 +48,11 @@ function getCharacters(characters) {
       alt="${character.name}" />
   </figure>
   <div class="card-body">
-    <h2 class="card-title">${character.name}</h2>
-    <p><strong>Vision:</strong> ${character.vision}</p>
-    <p><strong>Nation:</strong> ${character.nation}</p>
-    <p><strong>Weapon:</strong> ${character.weapon}</p>
+    <h2 class="card-title font-serif">${character.name}</h2>
+    <p class="font-mono"><strong>Vision:</strong> ${character.vision}</p>
+    <p class="font-mono"><strong>Nation:</strong> ${character.nation}</p>
+    <p class="font-mono"><strong>Weapon:</strong> ${character.weapon}</p>
     <div class="card-actions justify-end">
-      <button class="btn btn-primary">Watch</button>
     </div>
   </div>
 </div>
