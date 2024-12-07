@@ -24,6 +24,7 @@ async function fetchData() {
     } else {
       const data = await response.json();
       console.log(data);
+      getCharacters(data);
       return data;
     }
   } catch (error) {
@@ -31,7 +32,6 @@ async function fetchData() {
     alert("error");
   }
 }
-fetchData(apiEntry);
 
 function getCharacters(characters) {
   DOMSelectors.container.innerHTML = "";
@@ -64,6 +64,8 @@ function getCharacters(characters) {
     `;
   });
 }
+
+fetchData();
 
 async function showAllCharacters() {
   try {
