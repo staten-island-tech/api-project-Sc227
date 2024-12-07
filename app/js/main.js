@@ -42,10 +42,10 @@ function getCharacters(characters) {
 
     DOMSelectors.container.innerHTML += `
     <div data-theme="night">
-    <div class="card bg-base-100 w-96 shadow-xl">
+    <div class="card card-side bg-base-100 shadow-xl">
   <figure>
     <img
-      src="${imageURL}"
+      src="${imageURL}" class="w-64 object-cover"
       alt="${character.name}" />
   </figure>
   <div class="card-body">
@@ -53,7 +53,7 @@ function getCharacters(characters) {
     ${character.name}
       <div class="badge badge-secondary"> ${character.vision}</div>
     </h2>
-    <p>${character.description}</p>
+    <p>${character.title}</p>
     <div class="card-actions justify-end">
       <div class="badge badge-outline">${character.nation}</div>
       <div class="badge badge-outline">${character.weapon}</div>
