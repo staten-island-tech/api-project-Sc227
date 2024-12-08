@@ -163,42 +163,42 @@ async function showAllGeoCharacters() {
   }
 }
 
-DOMSelectors.all.addEventListener("click", (el) => {
-  el.preventDefault();
+DOMSelectors.all.addEventListener("click", function (event) {
+  event.preventDefault();
   showAllCharacters();
 });
 
-DOMSelectors.pyro.addEventListener("click", (el) => {
-  el.preventDefault();
+DOMSelectors.pyro.addEventListener("click", function (event) {
+  event.preventDefault();
   showAllPyroCharacters();
 });
 
-DOMSelectors.hydro.addEventListener("click", (el) => {
-  el.preventDefault();
+DOMSelectors.hydro.addEventListener("click", function (event) {
+  event.preventDefault();
   showAllHydroCharacters();
 });
 
-DOMSelectors.anemo.addEventListener("click", (el) => {
-  el.preventDefault();
+DOMSelectors.anemo.addEventListener("click", function (event) {
+  event.preventDefault();
   showAllAnemoCharacters();
 });
 
-DOMSelectors.electro.addEventListener("click", (el) => {
-  el.preventDefault();
+DOMSelectors.electro.addEventListener("click", function (event) {
+  event.preventDefault();
   showAllElectroCharacters();
 });
 
-DOMSelectors.dendro.addEventListener("click", (el) => {
-  el.preventDefault();
+DOMSelectors.dendro.addEventListener("click", function (event) {
+  event.preventDefault();
   showAllDendroCharacters();
 });
 
-DOMSelectors.cryo.addEventListener("click", (el) => {
-  el.preventDefault();
+DOMSelectors.cryo.addEventListener("click", function (event) {
+  event.preventDefault();
   showAllCryoCharacters();
 });
 
-DOMSelectors.geo.addEventListener("click", (el) => {
-  el.preventDefault();
+DOMSelectors.geo.addEventListener("click", function (event) {
+  event.preventDefault();
   showAllGeoCharacters();
 });
